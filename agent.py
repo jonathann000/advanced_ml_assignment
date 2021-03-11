@@ -7,6 +7,9 @@ class Agent(object):
         self.state_space = state_space
 
     def observe(self, observation, reward, done):
+        #Add your code here
         pass
     def act(self, observation):
+        #Add your code here
+
         return np.random.randint(self.action_space)
