@@ -35,7 +35,8 @@ What are your conclusions?
 
 ### 2. Policy based RL
 Implement the A2C algorithm and run on the environments. Since we are in a tabular environment, 
-you should parametrize the policy (and value function.) independently for each state.
+you should parametrize the policy (and value function.) independently for each state (no function approximation). 
+You can either calculate the gradient updates yourselves or use torch, tensorflow etc.
 Visualize the policy and the value-function of the agent.
 
 ### 3. Compare the methods
