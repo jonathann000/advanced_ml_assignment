@@ -29,7 +29,7 @@ Include error-bars (or something similar) indicating the 95% confidence interval
 
 ### 1. Q-learning
 Implement a Q-learning agent with 95% epsilon greedy and run it on the 
-environments. Visualize the Q-functions for each state. 
+environments. Visualize the Q-functions for each state. Does it reach the optimal policy? Does it depend on the initialization of Q?
    
 What are your conclusions?
 
