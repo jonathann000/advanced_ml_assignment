@@ -58,10 +58,10 @@ Your grade is not decided by how well you perform, but performing well can obvio
 #### Competition rules
 * Your submission to the competition is the file competitionagent.py
 * The algorithm can not be "unreasonably slow" (Discuss with Emilio if neccessary). Anything comparable with Q-learning and A2C is definately ok.
-* The goal is to perform as well as possible (highest total reward in T time steps or N episodes depending on if the environment "finishes") on some unknown environments which 
-   we will run after submission.
-* We will make a leaderboard of the top 20% of submissions 
-   (others will only be notified directly). 
+* The goal is to perform as well as possible (highest total reward in T time steps or N episodes depending on if the environment is episodic (i.e finishes) on some unknown environments which 
+   we will run after submission. The environments will follow the gym format and can be up to 300 states, 8 actions and rewards in [-10,10].
+* We will make a leaderboard of the top 25% of submissions 
+   (others teams will only be notified directly). 
 * The leaderboard will be created by the average ranking for a team in each of the environments.
 ****
 
