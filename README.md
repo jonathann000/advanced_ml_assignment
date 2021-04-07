@@ -74,8 +74,8 @@ Include the rest of the agents and neccessary code also.
 ## Grading
 The grading will be based on:
 1. **Your report**, how well you describe, analyse and visualize your results and how clear your text is.
-2. **Correctness**, how well your solutions perform as expected, and to some degree how well you manage to create a good algorithm in Q3.
-3. **Creativity**, coming up something good for Q3. Also make sure it is sufficiently challenging 
+2. **Correctness**, how well your solutions perform as expected, and to some degree how well you manage to create a good algorithm in Q4.
+3. **Creativity**, coming up something good for Q4. Also make sure it is sufficiently challenging 
    (not just tuning an epsilon greedy parameter in Q-learning...) 
 
 ## Getting input
