@@ -24,8 +24,8 @@ You should implement the algorithms yourselves, not using implementations by any
 ## Tasks
 Briefly describe each algorithm and how it works. 
 For all methods, run your experiments on NChain-v0 and FrozenLake-v0.  
-Plot the moving average of the rewards, averaged over 5 runs. 
-Include error-bars (or something similar) indicating the 95% confidence intervals.
+Plot the moving average of the rewards while your agent learnis, possibly by episode, averaged over 5 runs (i.e. restarting the training). 
+Include error-bars (or something similar) indicating the 95% confidence intervals calculated from your variance of the 5 runs.
 
 ### 1. Q-learning
 Implement a Q-learning agent with 95% epsilon greedy and run it on the 
@@ -35,8 +35,7 @@ What are your conclusions?
 
 ### 2. Policy based RL
 Implement the A2C algorithm and run on the environments. Since we are in a tabular environment, 
-you should parametrize the policy (and value function.) independently for each state (no function approximation). 
-You can either calculate the gradient updates yourselves or use torch, tensorflow etc. It will probably be neccesary to do the updates in batch and with a suitable learning rate.
+you should parametrize the policy (and value function.) independently for each state (no function approximation). A good idea is to use a softmax function to make sure your action probabilites sum to one. You can either calculate the gradient updates yourselves or use torch, tensorflow etc. It will probably be neccesary to do the updates in batch and with a suitable learning rate.
 Visualize the policy and the value-function of the agent.
 
 ### 3. Compare the methods
