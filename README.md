@@ -66,7 +66,7 @@ Your grade is not decided by how well you perform, but performing well can obvio
 
 ##  Submission
 Upload your submission to canvas as usual. 
-Include a report, up to 2 pages pdf (including figures, not references).
+Include a report, up to 4 pages pdf (including figures, not references). 
 Include an agent named competitionagent.py (make sure this runs with default run_experiment.py)
 Include the rest of the agents and neccessary code also.
 
