@@ -23,8 +23,8 @@ You should implement the algorithms yourselves, not using implementations by any
 ****
 ## Tasks
 Briefly describe each algorithm and how it works. 
-For all methods, run your experiments on NChain-v0 and FrozenLake-v0.  
-Plot the moving average of the rewards while your agent learnis, possibly by episode, averaged over 5 runs (i.e. restarting the training). 
+For all methods, run your experiments on NChain-v0 and ri.  
+Plot the moving average of the rewards while your agent learns, possibly by episode, averaged over 5 runs (i.e. restarting the training). 
 Include error-bars (or something similar) indicating the 95% confidence intervals calculated from your variance of the 5 runs.
 
 ### 1. Q-learning
@@ -33,14 +33,12 @@ environments. Visualize the Q-functions for each state. Does it reach the optima
    
 What are your conclusions?
 
-### 2. Policy based RL
-Implement the A2C algorithm and run on the environments. Since we are in a tabular environment, 
-you should parametrize the policy (and value function.) independently for each state (no function approximation). A good idea is to use a softmax function to make sure your action probabilites sum to one. You can either calculate the gradient updates yourselves or use torch, tensorflow etc. It will probably be neccesary to do the updates in batch and with a suitable learning rate.
+### 2. SARSA
 Visualize the policy and the value-function of the agent.
+What are the differences between SARSA and Q-learning algorithms?
 
-### 3. Compare the methods
-Make a list describing the conceptual differences between Q-learning and A2C, make sure to mention on/off-policy, exploration etc.
-
+### 3. Ilustrate the differences
+Illustrate the differences between the algorithm by creating an environment where SARSA clearly outperforms Q-learning. You can use the riverswim.py file as a template. Include a figure in your report that shows how the environment behaves as well as convergence plots for the algorithms.
 
 ### 4. Time for competition. 
    Which group can make an agent that learns the best on an unknown environment?
