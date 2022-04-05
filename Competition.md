@@ -1,16 +1,14 @@
 
 
-### 4. Time for competition. 
+## RL competition. 
    Which group can make an agent that learns the best on an unknown environment?
    Be creative and use what you have learned in the course and come up with something that works well.
-   Include experiments (as in Q1-2) with your agent and describe the agent in the report. Argue for why this is a reasonable approach. 
-   It can also be a good idea to describe some approaches you have tried but that were not successful.
-   Make sure to visualize the behaviour of your agent.
+   
 
 Some suggestions of things to try: smarter exploration, model based RL, distributional methods instead of only expectations, ensemble methods.
+Previously it has been successful to make sure that you use the data you seen more than just once (as you would with regular Q-learning for example).
 Anything that you think seems reasonable is ok (but you are only allowed to interact with the environment through the step command as well as reset on episode end)
 
-Your grade is not decided by how well you perform, but performing well can obviously help show that you have understood.
 
 #### Competition rules
 * Your submission to the competition is the file competitionagent.py
@@ -23,7 +21,5 @@ Your grade is not decided by how well you perform, but performing well can obvio
 ****
 
 ##  Submission
-Upload your submission to canvas as usual. 
-Include a report, up to 4 pages pdf (including figures, not references). 
+Include a report, around 0.5 page describing what you have done with your agent.
 Include an agent named competitionagent.py (make sure this runs with default run_experiment.py and withouth depending on any extra files)
-Include the rest of the agents and neccessary code also.
