@@ -1,6 +1,7 @@
 ## RL competition. 
    Which group can make an agent that learns the best on an unknown environment?
    Be creative and use what you have learned in the course and come up with something that works well.
+   Participating is totally voluntary, you do not need to participate to pass the course.
   
 
 Some suggestions of things to try: smarter exploration, model based RL, distributional methods instead of only expectations, ensemble methods.
