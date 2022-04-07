@@ -1,11 +1,27 @@
 ## RL competition. 
    Which group can make an agent that learns the best on an unknown environment?
    Be creative and use what you have learned in the course and come up with something that works well.
-   
+  
 
 Some suggestions of things to try: smarter exploration, model based RL, distributional methods instead of only expectations, ensemble methods.
 Previously it has been successful to make sure that you use the data you seen more than just once (as you would with regular Q-learning for example).
 Anything that you think seems reasonable is ok (but you are only allowed to interact with the environment through the step command as well as reset on episode end). Be a bit more creative than just adding a decaying exploration to Q-learning.
+
+
+#### Included files
+**agent.py** is a template agent for you to fill in, 
+make sure you follow the format to be able to participate in the competition (see Competition.md file).
+
+**riverswim.py** contains an environment that you can experiment with, but can also serve as a template for making your own
+environments.
+
+**run_experiment.py** serves as a template for how to run your experiments, it allows you to load different agents and 
+environments you might create by running. You can either call the existing gym environments or the ones you have created.
+
+## General instructions
+You will need the gym and numpy libraries. If you want to use torch/tensorflow for question 4 that is also ok 
+(but definitely not necessary, make sure your code runs on the latest version of the library). 
+Ask Emilio if you want to use any other library.
 
 
 #### Competition rules
@@ -21,3 +37,7 @@ Anything that you think seems reasonable is ok (but you are only allowed to inte
 ##  Submission
 Include a report, around 0.5 page describing what you have done with your agent.
 Include an agent named competitionagent.py (make sure this runs with default run_experiment.py and without depending on any extra files or arguments).
+
+
+
+
