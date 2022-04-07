@@ -10,7 +10,7 @@ Anything that you think seems reasonable is ok (but you are only allowed to inte
 
 #### Included files
 **agent.py** is a template agent for you to fill in, 
-make sure you follow the format to be able to participate in the competition (see Competition.md file).
+make sure you follow the format to be able to participate in the competition.
 
 **riverswim.py** contains an environment that you can experiment with, but can also serve as a template for making your own
 environments.
