@@ -5,7 +5,7 @@
   
 
 Some suggestions of things to try: smarter exploration, model based RL, distributional methods instead of only expectations, ensemble methods.
-Previously it has been successful to make sure that you use the data you seen more than just once (as you would with regular Q-learning for example). Deep learning is usually not helpful in tabular environments and usually is better in harder tasks where more data will be used.
+Previously it has been successful to make sure that you use the data you seen more than just once (as you would with regular Q-learning for example). Deep learning is usually not that helpful in tabular environments and usually is better in harder tasks where more data will be used, at least if you do not rely on heavily reusing the observed data to train the network.
 Anything that you think seems reasonable is ok (but you are only allowed to interact with the environment through the step command as well as reset on episode end). Be a bit more creative than just adding a decaying exploration to Q-learning.
 
 
