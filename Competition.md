@@ -41,4 +41,9 @@ Include an agent named competitionagent.py (make sure this runs with default run
 
 
 
+## Tips
+Note that some environments have a **done** flag to indicate that the episode is finished. 
+Make sure you take this into account. 
+For example, you do not want any future rewards from the terminal state and no transition from terminal state to starting state. 
+
 
