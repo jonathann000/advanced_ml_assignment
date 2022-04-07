@@ -1,5 +1,3 @@
-
-
 ## RL competition. 
    Which group can make an agent that learns the best on an unknown environment?
    Be creative and use what you have learned in the course and come up with something that works well.
@@ -7,7 +5,7 @@
 
 Some suggestions of things to try: smarter exploration, model based RL, distributional methods instead of only expectations, ensemble methods.
 Previously it has been successful to make sure that you use the data you seen more than just once (as you would with regular Q-learning for example).
-Anything that you think seems reasonable is ok (but you are only allowed to interact with the environment through the step command as well as reset on episode end)
+Anything that you think seems reasonable is ok (but you are only allowed to interact with the environment through the step command as well as reset on episode end). Be a bit more creative than just adding a decaying exploration to Q-learning.
 
 
 #### Competition rules
