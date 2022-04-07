@@ -20,4 +20,4 @@ Anything that you think seems reasonable is ok (but you are only allowed to inte
 
 ##  Submission
 Include a report, around 0.5 page describing what you have done with your agent.
-Include an agent named competitionagent.py (make sure this runs with default run_experiment.py and withouth depending on any extra files)
+Include an agent named competitionagent.py (make sure this runs with default run_experiment.py and without depending on any extra files or arguments).
