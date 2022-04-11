@@ -2,6 +2,7 @@
    Which group can make an agent that learns the best on an unknown environment?
    Be creative and use what you have learned in the course and come up with something that works well.
    Participating is totally voluntary, you do not need to participate to pass the course.
+   Outside of tremendous prestige, this competition may yield up to 5 bonus points in the course. These points can be used to increase your score on the assignments, not to get a passing grade, but to help you get a 4/5/VG on the assignments. The bonus points will be mostly based on the performance in the competition, but creative solutions may also be rewarded. Most groups will not get the maximum amount of points, but all groups that have done something non-trivial will gain at least 1-2 points.
   
 
 Some suggestions of things to try: smarter exploration, model based RL, distributional methods instead of only expectations, ensemble methods.
@@ -27,7 +28,7 @@ Ask Emilio if you want to use any other library.
 
 #### Competition rules
 * Your submission to the competition is the file competitionagent.py
-* The algorithm can not be "unreasonably slow" (Discuss with Emilio if neccessary). Anything comparable with Q-learning and A2C is definately ok.
+* The algorithm can not be "unreasonably slow" (Discuss with Emilio if neccessary). Anything comparable with Q-learning is definately ok.
 * The goal is to perform as well as possible (highest total reward in T time steps or N episodes depending on if the environment is episodic (i.e finishes) on some unknown environments which 
    we will run after submission. The environments will follow the gym format and can be up to 300 states, 8 actions and rewards in [-10,10].
 * We will make a leaderboard of the top 25% of submissions 
