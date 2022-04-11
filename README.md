@@ -1,6 +1,6 @@
 # Reinforcement Learning assignment
 
-The goal of this assignment is to create your own reinforcement learning assignments.
+The goal of this assignment is to create your own reinforcement learning agents.
 This github repo contains both the instructions and the files needed for the assignment.
 The assignment will use the [OpenAI gym](https://gym.openai.com/) structure, 
 I suggest you familiarize yourselves with this before getting started.
@@ -26,7 +26,7 @@ Plot the moving average of the rewards while your agent learns, possibly by epis
 Include error-bars (or something similar) indicating the 95% confidence intervals calculated from your variance of the 5 runs.
 
 ### Algorithms
-Implement Q-learning, Double Q-learning and SARSA agents with 95% epsilon greedy and run it on the 
+Implement Q-learning, Double Q-learning and SARSA agents with 5% epsilon greedy (95% greedy action) and run it on the 
 environments. Visualize the Q-functions for each state. Draw the greedy policy obtained from the Q-function. Does it reach the optimal policy? Does it depend on the initialization of Q?
    
 What are your conclusions? How do the agents perform? Discuss if the behaviour is expected based on what you have learned in the course.
