@@ -9,7 +9,7 @@ I suggest you familiarize yourselves with this before getting started.
 make sure you follow the format to be able to participate in the competition (see Competition.md file).
 
 **riverswim.py** contains an environment that you can experiment with, but can also serve as a template for making your own
-environments.
+environments. '''python3 run_experiment.py --env riverswim''' will run this environment.
 
 **run_experiment.py** serves as a template for how to run your experiments, it allows you to load different agents and 
 environments you might create by running. You can either call the existing gym environments or the ones you have created.
