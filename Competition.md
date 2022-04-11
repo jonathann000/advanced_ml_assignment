@@ -1,4 +1,4 @@
-## RL competition. 
+## RL competition. NOTE: This is not part of the mandatory assignment.
    Which group can make an agent that learns the best on an unknown environment?
    Be creative and use what you have learned in the course and come up with something that works well.
    Participating is totally voluntary, you do not need to participate to pass the course.
