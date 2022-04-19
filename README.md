@@ -34,7 +34,7 @@ What are your conclusions? How do the agents perform? Discuss if the behaviour i
 ## Grading
 The grading will be based on:
 1. **Your report**, how well you describe, analyse and visualize your results and how clear your text is.
-2. **Correctness**, how well your solutions perform as expected, and to some degree how well you manage to create a good algorithm in Q4.
+2. **Correctness**, how well your solutions perform as expected.
 
 
 ## Tips
