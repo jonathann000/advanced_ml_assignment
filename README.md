@@ -41,3 +41,6 @@ The grading will be based on:
 Note that some environments have a **done** flag to indicate that the episode is finished. 
 Make sure you take this into account. 
 For example, you do not want any future rewards from the terminal state and no transition from terminal state to starting state. 
+
+## Submission
+Make sure to include both your code and your report when you submit your assignment. 
