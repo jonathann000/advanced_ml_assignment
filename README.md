@@ -5,8 +5,7 @@ This github repo contains both the instructions and the files needed for the ass
 The assignment will use the [OpenAI gym](https://gym.openai.com/) structure, 
 I suggest you familiarize yourselves with this before getting started.
 
-**agent.py** is a template agent for you to fill in, 
-make sure you follow the format to be able to participate in the competition (see Competition.md file).
+**agent.py** is a template agent for you to fill in.
 
 **riverswim.py** contains an environment that you can experiment with, but can also serve as a template for making your own
 environments. '''python3 run_experiment.py --env riverswim''' will run this environment.
