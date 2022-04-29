@@ -4,6 +4,7 @@ The goal of this assignment is to create your own reinforcement learning agents.
 This github repo contains both the instructions and the files needed for the assignment.
 The assignment will use the [gym](https://www.gymlibrary.ml/) structure, 
 I suggest you familiarize yourselves with this before getting started.
+You might need to do '''pip install gym[toy_text]''' to install the FrozenLake environment.
 
 **agent.py** is a template agent for you to fill in.
 
@@ -20,7 +21,7 @@ You should implement the algorithms yourselves, not using implementations by any
 ****
 ## Tasks
 Briefly describe each algorithm and how it works. 
-For all methods, run your experiments on riverswim (included locally in this repository) and FrozenLake-v1 (which can be found in the gym library).  
+For all methods, run your experiments on riverswim (included locally in this repository) and FrozenLake-v1 (which can be found in the gym library, you might need to install).  
 Plot the moving average of the rewards while your agent learns, possibly by episode, averaged over 5 runs (i.e. restarting the training). 
 Include error-bars (or something similar) indicating the 95% confidence intervals calculated from your variance of the 5 runs.
 
