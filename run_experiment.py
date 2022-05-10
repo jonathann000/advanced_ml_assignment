@@ -30,7 +30,7 @@ state_dim = env.observation_space.n
 agent = agentfile.Agent(state_dim, action_dim)
 
 observation = env.reset()
-for _ in range(10000): 
+for _ in range(10): 
     #env.render()
     action = agent.act(observation) # your agent here (this takes random actions)
     observation, reward, done, info = env.step(action)
