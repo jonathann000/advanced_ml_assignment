@@ -38,9 +38,13 @@ The grading will be based on:
 
 
 ## Tips
-Note that some environments have a **done** flag to indicate that the episode is finished. 
-Make sure you take this into account. 
-For example, you do not want any future rewards from the terminal state and no transition from terminal state to starting state. 
+- Note that some environments have a **done** flag to indicate that the episode is finished. Make sure you take this into account. 
+   - For example, you do not want any future rewards from the terminal state and no transition from terminal state to starting state. 
+- In practice it is often good to initialize  Q-tables optimistically (larger than you expect the true table to be, not with zeroes). It can be interesting to think about why this is (but not necessary for the assignment).
+- The explorative policy might look bad due to the epsilon-exploration, good to check if the Q-table seems to give a good policy. You can always compare with the Bellman equation.
+- Since FrozenLake is slippery, it might look like good policy is sub-optimal. There are some subtle dynamics coming from that the agent can only slip perpendicularly to the direction of the action that can be worth thinking about.
+- The amount of steps in the run_experiments is just an example, you will probably need more steps.
+- Gamma should be something standard like 0.9/0.95/0.99. You will need to have alpha "sufficiently small" otherwise there will be high variance (alpha=1 would mean that you ignore the old value and overwrite it).
 
 ## Submission
 Make sure to include both your code and your report when you submit your assignment. 
