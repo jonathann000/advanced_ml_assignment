@@ -27,7 +27,7 @@ Include error-bars (or something similar) indicating the 95% confidence interval
 
 ### Algorithms
 Implement Q-learning, Double Q-learning and SARSA agents with 5% epsilon greedy (95% greedy action) and run it on the 
-environments. Visualize the Q-functions for each state. Draw/visualize the greedy policy obtained from the Q-function. Does it reach the optimal policy? Does it depend on the initialization of Q?
+environments. Set gamma=0.95. Visualize the Q-functions for each state. Draw/visualize the greedy policy obtained from the Q-function. Does it reach the optimal policy? Does it depend on the initialization of Q?
    
 What are your conclusions? How do the agents perform? Discuss if the behaviour is expected based on what you have learned in the course.
 
@@ -44,7 +44,7 @@ The grading will be based on:
 - The explorative policy might look bad due to the epsilon-exploration, good to check if the Q-table seems to give a good policy. You can always compare with the Bellman equation.
 - Since FrozenLake is slippery, it might look like good policy is sub-optimal. There are some subtle dynamics coming from that the agent can only slip perpendicularly to the direction of the action that can be worth thinking about.
 - The amount of steps in the run_experiments is just an example, you will probably need more steps.
-- Gamma should be something standard like 0.9/0.95/0.99. You will need to have alpha "sufficiently small" otherwise there will be high variance (alpha=1 would mean that you ignore the old value and overwrite it).
+- You will need to have alpha "sufficiently small" otherwise there will be high variance (alpha=1 would mean that you ignore the old value and overwrite it).
 
 ## Submission
 Make sure to include both your code and your report when you submit your assignment. 
