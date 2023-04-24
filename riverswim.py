@@ -1,9 +1,9 @@
-import gym
-from gym import spaces
-from gym.utils import seeding
+import gymnasium as gym
+from gymnasium import spaces
 import numpy as np
 
-class Env(gym.Env):
+# DO NOT MODIFY
+class RiverSwim(gym.Env):
     def __init__(self, n=6, small=5/1000, large=1):
         self.n = n
         self.small = small  # payout for 'backwards' action
@@ -11,9 +11,11 @@ class Env(gym.Env):
         self.state = 0  # Start at beginning of the chain
         self.action_space = spaces.Discrete(2)
         self.observation_space = spaces.Discrete(self.n)
+        
 
     def step(self, action):
         assert self.action_space.contains(action)
+        
 
         reward = 0
 
@@ -32,8 +34,9 @@ class Env(gym.Env):
                 if self.state == self.n-1:
                     reward = self.large
         done = False
-        return self.state, reward, done, {}
+        return self.state, reward, done, False, {}
 
-    def reset(self):
+
+    def reset(self, seed=None, options=None):
         self.state = 0
-        return self.state
+        return self.state, {}

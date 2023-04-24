@@ -1,6 +1,6 @@
 import numpy as np
 
-class Agent(object): #Keep the class name!
+class Agent(object):
     """The world's simplest agent!"""
     def __init__(self, state_space, action_space):
         self.action_space = action_space
