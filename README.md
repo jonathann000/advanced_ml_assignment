@@ -23,7 +23,7 @@ The tasks consist of describing, implementing, and analysing Q-learning, Double 
 Briefly describe the Q-learning, Double Q-learning, SARSA and Expected SARSA algorithm and how each of them work.
 
 ### 2. Run and plot rewards
-Implement Q-learning, Double Q-learning and SARSA agents with 5% epsilon greedy policy (95% greedy action) and $\gamma = 0.95$.
+Implement Q-learning, Double Q-learning, SARSA and Expected SARSA agents with 5% epsilon greedy policy (95% greedy action) and $\gamma = 0.95$.
 For every agent, run experiments on both RiverSwim (included locally in this repository) and [FrozenLake-v1](https://gymnasium.farama.org/environments/toy_text/frozen_lake/).  
 Plot the moving average of the rewards while your agent learns, either by episode or step depending on the environment, averaged over 5 runs (i.e., restarting the training 5 times). 
 Include error-bars (or something similar) indicating the 95% confidence intervals calculated from your variance of the 5 runs.
