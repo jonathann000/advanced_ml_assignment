@@ -29,10 +29,10 @@ Plot the moving average of the rewards while your agent learns, either by episod
 Include error-bars (or something similar) indicating the 95% confidence intervals calculated from your variance of the 5 runs.
 
 ### 3. Visualize Q-values and greedy policy
-Visualize the Q-values for each state (make sure it is easy to interpret, i.e., not just a table). Draw/visualize the greedy policy obtained from the Q-values. Does it reach the optimal policy? Briefly describe and motivate the optimal policy. 
+For every combination of agent and enviornment in Task 2., visualize the Q-values for each state (make sure it is easy to interpret, i.e., not just a table). Draw/visualize the greedy policy obtained from the Q-values. Does it reach the optimal policy? Briefly describe and motivate the optimal policy. 
 
 ### 4. Initialization of Q-values
-Investigate how the initialization of the Q-values affects how well the agent learns to solve  RiverSwim and FrozenLake-v1. For instance, initializing Q-tables optimistically (larger than you expect the true table to be, not with zeroes). How does it affect the rewards during training and the greedy policy obtained from the Q-values? How does it affect the exploration? Clearly explain and display evidence supporting your arguments. 
+Investigate how the initialization of the Q-values affects how well an agent learns to solve RiverSwim and FrozenLake-v1. For instance, initializing Q-tables optimistically (larger than you expect the true table to be, not with zeroes). How does it affect the rewards during training and the greedy policy obtained from the Q-values? How does it affect the exploration? Clearly explain and display evidence supporting your arguments. 
 
 ### 5. Discussion
 What are your conclusions? How do the agents perform? Discuss if the behaviour is expected based on what you have learned in the course. 
