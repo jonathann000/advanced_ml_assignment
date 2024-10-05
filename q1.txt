@@ -1,0 +1,10 @@
+Briefly describe the Q-learning, Double Q-learning, SARSA and Expected SARSA algorithm and how each of them works. 
+Also, briefly describe the dissimilarities and similarities between these agents.
+
+SARSA stands for "state-action-reward-state-action", the policy is learned from the values of state-action pairs.
+
+Q-learning 
+
+A dissimilarity between these two is that SARSA is on-policy while Q-learning is off-policy. In on-policy learning the agent updates
+the target policy by following the same policy, in off-policy learning the agent follows a different policy than the target one while 
+optimizing the target policy. 
