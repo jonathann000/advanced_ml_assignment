@@ -32,5 +32,6 @@ class Agent(object):
         
         else:
             self.prev_action = np.argmax(self.q_values[observation])
+        prev_observation = observation
 
         return self.prev_action
