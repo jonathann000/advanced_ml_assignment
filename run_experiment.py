@@ -15,7 +15,7 @@ spec.loader.exec_module(agentfile)
 
 
 try:
-    env = gym.make(args.env)
+    env = gym.make(args.env, render_mode="human")
     print("Loaded ", args.env)
 except:
     file_name, env_name = args.env.split(":")
@@ -34,7 +34,7 @@ state_dim = env.observation_space.n
 agent = agentfile.Agent(state_dim, action_dim)
 
 observation = env.reset()
-for _ in range(10): 
+for _ in range(100): 
     #env.render()
     action = agent.act(observation) # your agent here (this currently takes random actions)
     observation, reward, done, truncated, info = env.step(action)
