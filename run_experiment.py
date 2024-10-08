@@ -1,6 +1,7 @@
 import argparse
 import gymnasium as gym
 import importlib.util
+import matplotlib.pyplot as plt
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--agentfile", type=str, help="file with Agent object", default="agent.py")
@@ -15,7 +16,7 @@ spec.loader.exec_module(agentfile)
 
 
 try:
-    env = gym.make(args.env, render_mode="human")
+    env = gym.make(args.env)
     print("Loaded ", args.env)
 except:
     file_name, env_name = args.env.split(":")
@@ -34,9 +35,9 @@ state_dim = env.observation_space.n
 agent = agentfile.Agent(state_dim, action_dim)
 
 observation = env.reset()
-for _ in range(100): 
+for _ in range(1000000): 
     #env.render()
-    action = agent.act(observation) # your agent here (this currently takes random actions)
+    action = agent.act(observation) 
     observation, reward, done, truncated, info = env.step(action)
     rewards.append(reward)
     agent.observe(observation, reward, done)
@@ -45,3 +46,7 @@ for _ in range(100):
         observation, info = env.reset() 
 
 env.close()
+
+print(f'q-table: \n {agent.q_values}')
+plt.plot(range(len(agent.training_error)), agent.training_error)
+plt.show()
