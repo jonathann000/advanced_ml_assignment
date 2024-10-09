@@ -2,7 +2,7 @@ import numpy as np
 
 class Agent(object):
     """The world's simplest agent!"""
-    def __init__(self, state_space, action_space, alpha=0.005, epsilon=0.05, gamma=0.95):
+    def __init__(self, state_space, action_space, alpha=0.1, epsilon=0.05, gamma=0.95):
         self.action_space = action_space
         self.state_space = state_space
         self.alpha = alpha
@@ -20,6 +20,7 @@ class Agent(object):
         self.q_values[self.prev_observation, self.prev_action] += self.alpha * td
         self.prev_observation = observation
         self.training_error.append(td)
+
 
     def act(self, observation):
         if not self.stupid_flag:
