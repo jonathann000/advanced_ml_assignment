@@ -47,6 +47,13 @@ for _ in range(1000000):
 
 env.close()
 
-print(f'q-table: \n {agent.q_values}')
-plt.plot(range(len(agent.training_error)), agent.training_error)
+# Plots Q-learning
+import numpy as np
+r_length = 500 
+# avg to make plot more visibly clear
+training_error_avg = (
+    np.convolve(np.array(agent.training_error), np.ones(r_length), mode = 'same')
+    / r_length
+)
+plt.plot(range(len(training_error_avg)), training_error_avg)
 plt.show()
