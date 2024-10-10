@@ -4,7 +4,7 @@ import importlib.util
 import matplotlib.pyplot as plt
 
 parser = argparse.ArgumentParser()
-parser.add_argument("--agentfile", type=str, help="file with Agent object", default="agent.py")
+parser.add_argument("--agentfile", type=str, help="file with Agent object", default="agent_dq.py")
 parser.add_argument("--env", type=str, help="Environment", default="FrozenLake-v1")
 args = parser.parse_args()
 
@@ -36,7 +36,7 @@ agent = agentfile.Agent(state_dim, action_dim)
 
 observation = env.reset()
 for _ in range(100000): 
-    #env.render()
+    # env.render()
     action = agent.act(observation) 
     observation, reward, done, truncated, info = env.step(action)
     total_rewards_in_episode += reward
@@ -49,7 +49,8 @@ for _ in range(100000):
 
 env.close()
 
-# Plots Q-learning
+
+""" Plots for rewards and training error """
 import numpy as np
 r_length = 500 
 # avg to make plots more visibly clear

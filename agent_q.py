@@ -8,7 +8,7 @@ class Agent(object):
         self.alpha = alpha
         self.epsilon = epsilon
         self.gamma = gamma
-        self.q_values = np.full((state_space, action_space), 1.0) # TODO: test different initialisation values
+        self.q_values = np.full((state_space, action_space), 0.5) # TODO: test different initialisation values
         self.prev_observation = None
         self.prev_action = None
 
@@ -16,7 +16,9 @@ class Agent(object):
         self.training_error = []
 
     def observe(self, observation, reward, done):
-        td = reward + ((not done) * self.gamma * np.max(self.q_values[observation])) - self.q_values[self.prev_observation, self.prev_action]
+        td = reward + (
+            (not done) * self.gamma * np.max(self.q_values[observation])
+            ) - self.q_values[self.prev_observation, self.prev_action]
         self.q_values[self.prev_observation, self.prev_action] += self.alpha * td
         self.prev_observation = observation
         self.training_error.append(td)
