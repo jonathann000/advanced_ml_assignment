@@ -4,7 +4,7 @@ import importlib.util
 import matplotlib.pyplot as plt
 
 parser = argparse.ArgumentParser()
-parser.add_argument("--agentfile", type=str, help="file with Agent object", default="agent_dq.py")
+parser.add_argument("--agentfile", type=str, help="file with Agent object", default="agent_sarsa.py")
 parser.add_argument("--env", type=str, help="Environment", default="FrozenLake-v1")
 args = parser.parse_args()
 

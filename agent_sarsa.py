@@ -16,10 +16,16 @@ class Agent(object):
         self.training_error = []
 
     def observe(self, observation, reward, done):
+        if np.random.random() < self.epsilon:
+            new_act = np.random.choice(self.action_space)
+        else:
+            new_act = np.argmax(self.q_values[observation])
+        
         td = reward + (
-            (not done) * self.gamma * self.q_values[observation]
+            (not done) * self.gamma * self.q_values[observation, new_act]
             ) - self.q_values[self.prev_observation, self.prev_action]
         self.q_values[self.prev_observation, self.prev_action] += self.alpha * td
+        self.prev_action = new_act
         self.prev_observation = observation
         self.training_error.append(td)
 
@@ -30,12 +36,11 @@ class Agent(object):
             self.stupid_flag = True
 
         if np.random.random() < self.epsilon:
-            action = np.random.choice(self.action_space)
+            self.prev_action = np.random.choice(self.action_space)
         
         else:
-            action = np.argmax(self.q_values[observation])
+            self.prev_action = np.argmax(self.q_values[observation])
         
-        # self.prev_observation = observation
-        self.prev_action = action
+        self.prev_observation = observation
 
         return self.prev_action
