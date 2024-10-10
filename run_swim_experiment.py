@@ -4,15 +4,13 @@ import importlib.util
 import matplotlib.pyplot as plt
 
 parser = argparse.ArgumentParser()
-parser.add_argument("--agentfile", type=str, help="file with Agent object", default="agent_dq.py")
+parser.add_argument("--agentfile", type=str, help="file with Agent object", default="agent_q.py")
 parser.add_argument("--env", type=str, help="Environment", default="FrozenLake-v1")
 args = parser.parse_args()
 
 spec = importlib.util.spec_from_file_location('Agent', args.agentfile)
 agentfile = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(agentfile)
-
-
 
 
 try:
@@ -40,8 +38,8 @@ for _ in range(100000):
     action = agent.act(observation) 
     observation, reward, done, truncated, info = env.step(action)
     total_rewards_in_episode += reward
+    rewards_per_episode.append(total_rewards_in_episode)
     agent.observe(observation, reward, done)
-    
     if done:
         rewards_per_episode.append(total_rewards_in_episode)
         total_rewards_in_episode = 0
@@ -59,7 +57,7 @@ rewards_moving_avg = (
     np.convolve(np.array(rewards_per_episode), np.ones(r_length), mode = 'valid')
     / r_length
 )
-axs[0].set_title("Rewards per episode")
+axs[0].set_title("Rewards per step")
 axs[0].plot(range(len(rewards_moving_avg)), rewards_moving_avg)
 training_error_moving_avg = (
     np.convolve(np.array(agent.training_error), np.ones(r_length), mode = 'same')

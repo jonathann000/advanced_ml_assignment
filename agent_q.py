@@ -2,13 +2,13 @@ import numpy as np
 
 class Agent(object):
     """The world's simplest agent!"""
-    def __init__(self, state_space, action_space, alpha=0.1, epsilon=0.05, gamma=0.95):
+    def __init__(self, state_space, action_space, alpha=0.05, epsilon=0.05, gamma=0.95):
         self.action_space = action_space
         self.state_space = state_space
         self.alpha = alpha
         self.epsilon = epsilon
         self.gamma = gamma
-        self.q_values = np.full((state_space, action_space), 0.5) # TODO: test different initialisation values
+        self.q_values = np.full((state_space, action_space), 1.0) # TODO: test different initialisation values
         self.prev_observation = None
         self.prev_action = None
 

@@ -2,7 +2,7 @@ import numpy as np
 
 class Agent(object):
     """The world's simplest agent!"""
-    def __init__(self, state_space, action_space, alpha=0.1, epsilon=0.05, gamma=0.95):
+    def __init__(self, state_space, action_space, alpha=0.05, epsilon=0.05, gamma=0.95):
         self.action_space = action_space
         self.state_space = state_space
         self.alpha = alpha
@@ -39,7 +39,7 @@ class Agent(object):
             observation = observation[0]
             self.stupid_flag = True
 
-        combined_q_value = (self.q1_values[observation] + self.q2_values[observation]) / 2
+        combined_q_value = (self.q1_values[observation] + self.q2_values[observation])
 
         if np.random.random() < self.epsilon:
             self.prev_action = np.random.choice(self.action_space)
