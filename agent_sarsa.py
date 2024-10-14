@@ -17,25 +17,13 @@ class Agent(object):
         self.training_error = []
 
     def observe(self, observation, reward, done):
-<<<<<<< Updated upstream
-        if np.random.random() < self.epsilon:
-            new_act = np.random.choice(self.action_space)
-        else:
-            new_act = np.argmax(self.q_values[observation])
-        
-        td = reward + (
-            (not done) * self.gamma * self.q_values[observation, new_act]
-            ) - self.q_values[self.prev_observation, self.prev_action]
-=======
         if np.random.random() > self.epsilon and np.max(self.q_values[observation]) > self.q_init:
             action = np.argmax(self.q_values[observation])
         else:
             action = np.random.choice(self.action_space)
 
         td = reward + ((not done) * self.gamma * self.q_values[observation, action]) - self.q_values[self.prev_observation, self.prev_action]
->>>>>>> Stashed changes
         self.q_values[self.prev_observation, self.prev_action] += self.alpha * td
-        self.prev_action = new_act
         self.prev_observation = observation
         self.prev_action = action
         self.training_error.append(td)
@@ -46,15 +34,6 @@ class Agent(object):
             observation = observation[0]
             self.stupid_flag = True
 
-<<<<<<< Updated upstream
-        if np.random.random() < self.epsilon:
-            self.prev_action = np.random.choice(self.action_space)
-        
-        else:
-            self.prev_action = np.argmax(self.q_values[observation])
-        
-        self.prev_observation = observation
-=======
         if np.random.random() > self.epsilon and np.max(self.q_values[observation]) > self.q_init:
             action = np.argmax(self.q_values[observation])
         else:
@@ -62,6 +41,5 @@ class Agent(object):
         
         self.prev_observation = observation
         self.prev_action = action
->>>>>>> Stashed changes
 
         return self.prev_action
