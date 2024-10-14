@@ -1,10 +1,9 @@
 import argparse
 import gymnasium as gym
 import importlib.util
-import matplotlib.pyplot as plt
 
 parser = argparse.ArgumentParser()
-parser.add_argument("--agentfile", type=str, help="file with Agent object", default="agent_dq.py")
+parser.add_argument("--agentfile", type=str, help="file with Agent object", default="agent_esarsa.py")
 parser.add_argument("--env", type=str, help="Environment", default="FrozenLake-v1")
 args = parser.parse_args()
 
@@ -12,11 +11,8 @@ spec = importlib.util.spec_from_file_location('Agent', args.agentfile)
 agentfile = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(agentfile)
 
-
-
-
 try:
-    env = gym.make(args.env)
+    env = gym.make(args.env, is_slippery=False)
     print("Loaded ", args.env)
 except:
     file_name, env_name = args.env.split(":")
@@ -35,7 +31,7 @@ state_dim = env.observation_space.n
 agent = agentfile.Agent(state_dim, action_dim)
 
 observation = env.reset()
-for _ in range(100000): 
+for _ in range(50000): 
     # env.render()
     action = agent.act(observation) 
     observation, reward, done, truncated, info = env.step(action)
@@ -48,11 +44,15 @@ for _ in range(100000):
         observation, info = env.reset() 
 
 env.close()
-
+# print(f'q-table: \n {(agent.q1_values+agent.q2_values) / 2}')
+print(f'q-table: \n {agent.q_values}')
+print(f'number of episodes: \n {len(rewards_per_episode)}')
 
 """ Plots for rewards and training error """
 import numpy as np
-r_length = 500 
+import matplotlib.pyplot as plt
+
+r_length = 500
 # avg to make plots more visibly clear
 fig, axs = plt.subplots(ncols=2, figsize=(12, 5))
 rewards_moving_avg = (
@@ -61,6 +61,7 @@ rewards_moving_avg = (
 )
 axs[0].set_title("Rewards per episode")
 axs[0].plot(range(len(rewards_moving_avg)), rewards_moving_avg)
+
 training_error_moving_avg = (
     np.convolve(np.array(agent.training_error), np.ones(r_length), mode = 'same')
     / r_length
@@ -70,3 +71,4 @@ axs[1].plot(range(len(training_error_moving_avg)), training_error_moving_avg)
 
 plt.tight_layout()
 plt.show()
+

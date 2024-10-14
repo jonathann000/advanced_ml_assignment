@@ -2,14 +2,18 @@ import numpy as np
 
 class Agent(object):
     """The world's simplest agent!"""
+<<<<<<< Updated upstream
     def __init__(self, state_space, action_space, alpha=0.05, epsilon=0.05, gamma=0.95):
+=======
+    def __init__(self, state_space, action_space, alpha=0.01, epsilon=0.05, gamma=0.95):
+>>>>>>> Stashed changes
         self.action_space = action_space
         self.state_space = state_space
         self.alpha = alpha
         self.epsilon = epsilon
         self.gamma = gamma
-        self.q1_values = np.full((state_space, action_space), 0.5)
-        self.q2_values = np.full((state_space, action_space), 0.5)
+        self.q1_values = np.full((state_space, action_space), 0.)
+        self.q2_values = np.full((state_space, action_space), 0.)
 
         self.prev_observation = None
         self.prev_action = None
@@ -19,18 +23,22 @@ class Agent(object):
 
     def observe(self, observation, reward, done):
         if np.random.random() < 0.5:
-            td = reward + (
+            td = (
+                reward + (
                 (not done) * self.gamma * self.q2_values[observation, np.argmax(self.q1_values[observation])]
                 ) - self.q1_values[self.prev_observation, self.prev_action]
+                )
             self.q1_values[self.prev_observation, self.prev_action] += self.alpha * td
 
         else:
-            td = reward + (
+            td = (
+                reward + (
                 (not done) * self.gamma * self.q1_values[observation, np.argmax(self.q2_values[observation])]
-            ) - self.q2_values[self.prev_observation, self.prev_action]
+                ) - self.q2_values[self.prev_observation, self.prev_action]
+                )
             self.q2_values[self.prev_observation, self.prev_action] += self.alpha * td
         
-        self.prev_observation = observation
+        # self.prev_observation = observation
         self.training_error.append(td)
 
 
@@ -41,12 +49,12 @@ class Agent(object):
 
         combined_q_value = (self.q1_values[observation] + self.q2_values[observation])
 
-        if np.random.random() < self.epsilon:
-            self.prev_action = np.random.choice(self.action_space)
-        
+        if np.random.random() > self.epsilon and np.max(combined_q_value) > 0:
+            action = np.argmax(combined_q_value)
         else:
-            self.prev_action = np.argmax(combined_q_value)
+            action = np.random.choice(self.action_space)
         
         self.prev_observation = observation
+        self.prev_action = action
 
-        return self.prev_action
+        return action

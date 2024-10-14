@@ -8,7 +8,11 @@ class Agent(object):
         self.alpha = alpha
         self.epsilon = epsilon
         self.gamma = gamma
+<<<<<<< Updated upstream
         self.q_values = np.full((state_space, action_space), 1.0) # TODO: test different initialisation values
+=======
+        self.q_values = np.full((state_space, action_space), 0.) # TODO: test different initialisation values
+>>>>>>> Stashed changes
         self.prev_observation = None
         self.prev_action = None
 
@@ -16,25 +20,28 @@ class Agent(object):
         self.training_error = []
 
     def observe(self, observation, reward, done):
-        td = reward + (
-            (not done) * self.gamma * np.max(self.q_values[observation])
-            ) - self.q_values[self.prev_observation, self.prev_action]
-        self.q_values[self.prev_observation, self.prev_action] += self.alpha * td
-        self.prev_observation = observation
-        self.training_error.append(td)
+        temporal_difference = reward + (self.gamma * (not done) * np.max(self.q_values[observation]) - self.q_values[self.prev_observation, self.prev_action])
 
+        self.q_values[self.prev_observation, self.prev_action] +=  self.alpha * temporal_difference
+        
+        self.prev_observation = observation
+        self.training_error.append(temporal_difference)
+
+        if done:
+            self.prev_action = None
+            self.prev_observation = None
 
     def act(self, observation):
         if not self.stupid_flag:
             observation = observation[0]
             self.stupid_flag = True
 
-        if np.random.random() < self.epsilon:
-            self.prev_action = np.random.choice(self.action_space)
-        
-        else:
-            self.prev_action = np.argmax(self.q_values[observation])
-        
-        self.prev_observation = observation
+        if np.random.random() > self.epsilon and np.max(self.q_values[observation]) > 0: # Explore
+            action = np.argmax(self.q_values[observation])
+        else: # Exploit
+            action = np.random.choice(self.action_space)
 
-        return self.prev_action
+        self.prev_observation = observation
+        self.prev_action = action
+
+        return action

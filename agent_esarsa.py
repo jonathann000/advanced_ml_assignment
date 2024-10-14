@@ -17,27 +17,27 @@ class Agent(object):
         self.training_error = []
 
     def observe(self, observation, reward, done):
-<<<<<<< Updated upstream
-        if np.random.random() < self.epsilon:
-            new_act = np.random.choice(self.action_space)
-        else:
-            new_act = np.argmax(self.q_values[observation])
-        
-        td = reward + (
-            (not done) * self.gamma * self.q_values[observation, new_act]
-            ) - self.q_values[self.prev_observation, self.prev_action]
-=======
-        if np.random.random() > self.epsilon and np.max(self.q_values[observation]) > self.q_init:
-            action = np.argmax(self.q_values[observation])
-        else:
-            action = np.random.choice(self.action_space)
+        expected_q = 0
+        greedy_actions = 0
+        q_max = np.max(self.q_values[observation])
+        for i in range(self.action_space):
+            if self.q_values[observation, i] == q_max:
+                greedy_actions += 1
 
-        td = reward + ((not done) * self.gamma * self.q_values[observation, action]) - self.q_values[self.prev_observation, self.prev_action]
->>>>>>> Stashed changes
-        self.q_values[self.prev_observation, self.prev_action] += self.alpha * td
-        self.prev_action = new_act
+        prob_non_greedy = self.epsilon / self.action_space
+        prob_greedy = ((1 - self.epsilon) / greedy_actions) + prob_non_greedy
+ 
+        for i in range(self.action_space):
+            if self.q_values[observation, i] == q_max:
+                expected_q += prob_greedy * q_max
+            else:
+                expected_q += prob_non_greedy * self.q_values[observation, i]
+        
+        td = reward + (self.gamma * expected_q) - self.q_values[self.prev_observation, self.prev_action]
+
+        self.q_values[self.prev_observation, self.prev_action] += self.alpha * td 
+
         self.prev_observation = observation
-        self.prev_action = action
         self.training_error.append(td)
 
 
@@ -46,15 +46,6 @@ class Agent(object):
             observation = observation[0]
             self.stupid_flag = True
 
-<<<<<<< Updated upstream
-        if np.random.random() < self.epsilon:
-            self.prev_action = np.random.choice(self.action_space)
-        
-        else:
-            self.prev_action = np.argmax(self.q_values[observation])
-        
-        self.prev_observation = observation
-=======
         if np.random.random() > self.epsilon and np.max(self.q_values[observation]) > self.q_init:
             action = np.argmax(self.q_values[observation])
         else:
@@ -62,6 +53,5 @@ class Agent(object):
         
         self.prev_observation = observation
         self.prev_action = action
->>>>>>> Stashed changes
 
         return self.prev_action
