@@ -3,7 +3,7 @@ import gymnasium as gym
 import importlib.util
 
 parser = argparse.ArgumentParser()
-parser.add_argument("--agentfile", type=str, help="file with Agent object", default="agent_esarsa.py")
+parser.add_argument("--agentfile", type=str, help="file with Agent object", default="agent_q.py")
 parser.add_argument("--env", type=str, help="Environment", default="FrozenLake-v1")
 args = parser.parse_args()
 
@@ -31,7 +31,7 @@ state_dim = env.observation_space.n
 agent = agentfile.Agent(state_dim, action_dim)
 
 observation = env.reset()
-for _ in range(50000): 
+for _ in range(100000): 
     # env.render()
     action = agent.act(observation) 
     observation, reward, done, truncated, info = env.step(action)
@@ -44,9 +44,10 @@ for _ in range(50000):
         observation, info = env.reset() 
 
 env.close()
-# print(f'q-table: \n {(agent.q1_values+agent.q2_values) / 2}')
+print(f'accumulated rewards: {sum(rewards_per_episode)}')
+#print(f'q-table: \n {(agent.q1_values+agent.q2_values) / 2}')
 print(f'q-table: \n {agent.q_values}')
-print(f'number of episodes: \n {len(rewards_per_episode)}')
+#print(f'number of episodes: \n {len(rewards_per_episode)}')
 
 """ Plots for rewards and training error """
 import numpy as np

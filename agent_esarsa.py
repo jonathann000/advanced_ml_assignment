@@ -2,7 +2,7 @@ import numpy as np
 
 class Agent(object):
     """The world's simplest agent!"""
-    def __init__(self, state_space, action_space, alpha=0.1, epsilon=0.05, gamma=0.95, q_init = 0.):
+    def __init__(self, state_space, action_space, alpha=0.01, epsilon=0.05, gamma=0.95, q_init = 0.):
         self.action_space = action_space
         self.state_space = state_space
         self.alpha = alpha

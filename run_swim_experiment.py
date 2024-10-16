@@ -47,6 +47,8 @@ for _ in range(100000):
 
 env.close()
 
+#print(f'accummulated rewards and q-table: {rewards_per_episode[-1]} \n {(agent.q1_values+agent.q2_values) / 2}' )
+print(f'accummulated rewards and q-table: {rewards_per_episode[-1]} \n {agent.q_values}' )
 
 """ Plots for rewards and training error """
 import numpy as np
