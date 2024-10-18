@@ -37,7 +37,7 @@ def run_agent(q_init=0.1, n_episodes=n_episodes):
 
     observation = env.reset()
     episode_count = 0
-    while episode_count < n_episodes:  # Fix the number of episodes
+    while episode_count < n_episodes:
         action = agent.act(observation)
         observation, reward, done, truncated, info = env.step(action)
         total_rewards_in_episode += reward
@@ -47,32 +47,24 @@ def run_agent(q_init=0.1, n_episodes=n_episodes):
             rewards_per_episode.append(total_rewards_in_episode)
             total_rewards_in_episode = 0
             observation, info = env.reset()
-            episode_count += 1  # Increment episode count after each reset
+            episode_count += 1  # after each episode
     env.close()
     return rewards_per_episode
 
 def plot_mean_rewards(all_rewards, r_length, n_episodes, q_init):
-    """
-    Plots the mean rewards and confidence intervals for a single Q-value initialization across multiple runs.
-    :param all_rewards: List of reward arrays for each run of the same Q-value initialization
-    :param r_length: Window size for the moving average
-    :param n_episodes: Total number of episodes in each run
-    """
-    # Convert all_rewards to a NumPy array for easier manipulation
     all_rewards = np.array(all_rewards)
     
     # Calculate moving averages (using convolution) for each run
     moving_avg_rewards = np.array([np.convolve(r, np.ones(r_length)/r_length, mode='valid') for r in all_rewards])
 
     # Calculate mean and confidence interval across runs for each episode
-    mean_rewards = np.mean(moving_avg_rewards, axis=0)  # Mean reward per episode, averaged over runs
+    mean_rewards = np.mean(moving_avg_rewards, axis=0)
     confidence_intervals = stats.sem(moving_avg_rewards, axis=0) * stats.t.ppf((1 + 0.95) / 2, moving_avg_rewards.shape[0] - 1)
 
-    # Generate the episodes array (taking into account the reduced number after moving average)
     episodes = np.arange(n_episodes - r_length + 1)
 
     # Plot the mean and confidence intervals
-    plt.plot(episodes, mean_rewards, label=f'Q-init: {q_init}')  # Plot the mean rewards
+    plt.plot(episodes, mean_rewards, label=f'Q-init: {q_init}')
     plt.fill_between(episodes, mean_rewards - confidence_intervals, mean_rewards + confidence_intervals, alpha=0.2)
 
     plt.xlabel('Episodes')
@@ -81,17 +73,14 @@ def plot_mean_rewards(all_rewards, r_length, n_episodes, q_init):
     plt.legend()
     plt.show()
 
-# Number of runs for averaging
 n_runs = 5
-q_init_value = 0.1  # Set your Q-init value here
-n_episodes = 10000  # Fix the number of episodes for all runs
-r_length = 500  # Moving average window size
+q_init_value = 0.1  
+n_episodes = 10000  
+r_length = 500 
 
-# Perform multiple runs of the agent with the same Q-value initialization
 all_rewards = []
 for _ in range(n_runs):
     rewards = run_agent(q_init=q_init_value, n_episodes=n_episodes)
     all_rewards.append(rewards)
 
-# Plot the results for the single Q-init value
 plot_mean_rewards(all_rewards, r_length=r_length, n_episodes=n_episodes, q_init = q_init_value)

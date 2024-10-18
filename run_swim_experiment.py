@@ -34,7 +34,6 @@ agent = agentfile.Agent(state_dim, action_dim)
 
 observation = env.reset()
 for _ in range(100000): 
-    # env.render()
     action = agent.act(observation) 
     observation, reward, done, truncated, info = env.step(action)
     total_rewards_in_episode += reward
@@ -47,21 +46,19 @@ for _ in range(100000):
 
 env.close()
 
-def value_iteration(env, theta=1e-6, gamma=0.95):
-    # Initialize V(s) for all states arbitrarily, except terminal state (assumed to be n-1 in RiverSwim)
+def value_iteration(env, threshold=1e-6, gamma=0.95):
     V = np.zeros(env.observation_space.n)
     
     while True:
-        delta = 0  # Initialize delta to track changes
+        delta = 0 
         for s in range(env.observation_space.n):
-            v = V[s]  # Store the old value of V(s)
+            v = V[s]  
             
-            # Update V(s) using the Bellman equation
+            # Update V(s) using Bellman equation
             action_values = []
             for a in range(env.action_space.n):
                 total = 0
-                # Simulate all possible outcomes for each action
-                if a == 0:  # 'Go left'
+                if a == 0:  # left
                     if s == 0:
                         reward = env.small
                         next_state = 0
@@ -69,7 +66,7 @@ def value_iteration(env, theta=1e-6, gamma=0.95):
                         reward = 0
                         next_state = s - 1
                     total += reward + gamma * V[next_state]
-                else:  # 'Go right'
+                else:  # right
                     if s == 0:
                         reward = 0
                         next_state_prob = [0.4, 0.6]
@@ -88,21 +85,18 @@ def value_iteration(env, theta=1e-6, gamma=0.95):
                 
                 action_values.append(total)
             
-            V[s] = max(action_values)  # Take the action with the highest expected value
-            delta = max(delta, abs(v - V[s]))  # Track the maximum change in value
-        
-        # If the change is less than theta, stop iterating
-        if delta < theta:
-            print("Value iteration converged")
+            V[s] = max(action_values)  # action with highest expected value
+            delta = max(delta, abs(v - V[s])) 
+ 
+        if delta < threshold:
             break
-    
-    # Output the deterministic policy
+
     policy = np.zeros([env.observation_space.n, env.action_space.n])
     for s in range(env.observation_space.n):
         action_values = []
         for a in range(env.action_space.n):
             total = 0
-            if a == 0:  # 'Go left'
+            if a == 0:  # left
                 if s == 0:
                     reward = env.small
                     next_state = 0
@@ -110,7 +104,7 @@ def value_iteration(env, theta=1e-6, gamma=0.95):
                     reward = 0
                     next_state = s - 1
                 total += reward + gamma * V[next_state]
-            else:  # 'Go right'
+            else:  # right
                 if s == 0:
                     reward = 0
                     next_state_prob = [0.4, 0.6]
@@ -119,7 +113,7 @@ def value_iteration(env, theta=1e-6, gamma=0.95):
                     reward = 0
                     next_state_prob = [0.05, 0.6, 0.35]
                     next_state_options = [s - 1, s, s + 1]
-                else:  # s == n-1 (terminal)
+                else:  # s == n-1
                     reward = env.large
                     next_state_prob = [0.4, 0.6]
                     next_state_options = [s - 1, s]
@@ -130,7 +124,7 @@ def value_iteration(env, theta=1e-6, gamma=0.95):
             action_values.append(total)
         
         best_action = np.argmax(action_values)
-        policy[s, best_action] = 1.0  # Set the best action for this state
+        policy[s, best_action] = 1.0 
 
     return policy, V
 
@@ -160,15 +154,11 @@ plt.show()
 
 q_table = (agent.q1_values + agent.q2_values) / 2
 #q_table = agent.q_values
-# Define the actions: left (0), right (1)
-# Define the actions: left (0), right (1)
 n_states = q_table.shape[0]
 
-# Create a grid for the visualization (we will use 1D plotting as we only have left/right movement)
-x = np.arange(n_states)  # Use state positions directly
-y = np.ones(n_states) * 0.5  # Fixed y-value (since there is no vertical movement)
+x = np.arange(n_states)  
+y = np.ones(n_states) * 0.5  # Fixed y-value
 
-# Initialize dx and dy (dx for left/right, dy will be 0 because no vertical movement)
 dx = np.zeros_like(q_table[:, 0])
 dy = np.zeros_like(q_table[:, 0])
 
@@ -181,30 +171,26 @@ for i in range(n_states):
     elif best_action == 1:  # Right
         dx[i] = 0.3
 
-# Plotting
-plt.figure(figsize=(8, 2))  # Adjust width for better spacing
+
+plt.figure(figsize=(8, 2))
 plt.quiver(x + 0.4, y, dx, dy, scale=1, scale_units='xy', angles='xy', color='r')
 
 # Set equal spacing for arrows
 plt.xlim(0, n_states)
 plt.ylim(0, 1)
 
-# Remove grid lines and y-ticks
 plt.xticks(np.arange(n_states) + 0.5, labels=np.arange(n_states))
-plt.yticks([])  # No y-axis labels or ticks
+plt.yticks([]) 
 
-# Remove all borders except bottom (to make it cleaner)
+# Remove all borders
 plt.gca().spines['top'].set_visible(False)
 plt.gca().spines['right'].set_visible(False)
 plt.gca().spines['left'].set_visible(False)
 
-# Set aspect ratio to be equal
 plt.gca().set_aspect('equal', adjustable='box')
 
-# Title
 plt.title('Q-table Preferred Actions (Left/Right)')
 
-# Show plot
 plt.show()
 
 policy, V = value_iteration(env)
