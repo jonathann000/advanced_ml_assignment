@@ -13,8 +13,7 @@ args = parser.parse_args()
 spec = importlib.util.spec_from_file_location('Agent', args.agentfile)
 agentfile = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(agentfile)
-n_episodes = 1000
-n_runs = 3  # Number of runs to average per q_init
+n_episodes = 10000
 
 def run_agent(q_init=0.1, n_episodes=n_episodes):
     try:
@@ -52,50 +51,47 @@ def run_agent(q_init=0.1, n_episodes=n_episodes):
     env.close()
     return rewards_per_episode
 
-def plot_mean_rewards(all_rewards, q_inits, r_length):
+def plot_mean_rewards(all_rewards, r_length, n_episodes, q_init):
     """
-    Plots the mean rewards for different Q-value initializations.
-    :param all_rewards: List of reward arrays for each Q-value initialization
-    :param q_inits: List of Q-value initialization values
+    Plots the mean rewards and confidence intervals for a single Q-value initialization across multiple runs.
+    :param all_rewards: List of reward arrays for each run of the same Q-value initialization
     :param r_length: Window size for the moving average
+    :param n_episodes: Total number of episodes in each run
     """
     # Convert all_rewards to a NumPy array for easier manipulation
     all_rewards = np.array(all_rewards)
-
-    plt.figure(figsize=(10, 6))
     
-    for i, q_init in enumerate(q_inits):
-        # Calculate moving averages (using convolution) for each Q-init
-        moving_avg_rewards = np.array([np.convolve(r, np.ones(r_length)/r_length, mode='valid') for r in all_rewards[i]])
+    # Calculate moving averages (using convolution) for each run
+    moving_avg_rewards = np.array([np.convolve(r, np.ones(r_length)/r_length, mode='valid') for r in all_rewards])
 
-        # Calculate mean and confidence interval across runs for each episode
-        mean_rewards = np.mean(moving_avg_rewards, axis=0)  # Mean reward per episode, averaged over runs
-        confidence_intervals = stats.sem(moving_avg_rewards, axis=0) * stats.t.ppf((1 + 0.95) / 2, moving_avg_rewards.shape[0] - 1)
+    # Calculate mean and confidence interval across runs for each episode
+    mean_rewards = np.mean(moving_avg_rewards, axis=0)  # Mean reward per episode, averaged over runs
+    confidence_intervals = stats.sem(moving_avg_rewards, axis=0) * stats.t.ppf((1 + 0.95) / 2, moving_avg_rewards.shape[0] - 1)
 
-        # Plot the mean rewards with confidence intervals
-        episodes = np.arange(n_episodes - r_length + 1)
-        plt.plot(episodes, mean_rewards, label=f'Q-init: {q_init}')
-        #plt.fill_between(episodes, mean_rewards - confidence_intervals, mean_rewards + confidence_intervals, alpha=0.2)
+    # Generate the episodes array (taking into account the reduced number after moving average)
+    episodes = np.arange(n_episodes - r_length + 1)
+
+    # Plot the mean and confidence intervals
+    plt.plot(episodes, mean_rewards, label=f'Q-init: {q_init}')  # Plot the mean rewards
+    plt.fill_between(episodes, mean_rewards - confidence_intervals, mean_rewards + confidence_intervals, alpha=0.2)
 
     plt.xlabel('Episodes')
     plt.ylabel('Moving Average Reward')
-    plt.title('Moving Average for Different Q-value Initializations')
+    plt.title('Mean Reward with Confidence Intervals')
     plt.legend()
     plt.show()
 
-# List of Q-value initializations to test
-q_inits = [0.0, 0.1, 0.2, 0.3, 0.5, 1.0]
-
-# Perform 5 runs of the agent for each Q-value initialization
+# Number of runs for averaging
+n_runs = 5
+q_init_value = 0.1  # Set your Q-init value here
 n_episodes = 10000  # Fix the number of episodes for all runs
+r_length = 500  # Moving average window size
+
+# Perform multiple runs of the agent with the same Q-value initialization
 all_rewards = []
+for _ in range(n_runs):
+    rewards = run_agent(q_init=q_init_value, n_episodes=n_episodes)
+    all_rewards.append(rewards)
 
-for q_init in q_inits:
-    rewards_for_q_init = []
-    for run in range(n_runs):
-        rewards = run_agent(q_init=q_init, n_episodes=n_episodes)
-        rewards_for_q_init.append(rewards)
-    all_rewards.append(rewards_for_q_init)
-
-# Plot the mean rewards for different Q-value initializations
-plot_mean_rewards(all_rewards, q_inits, r_length=500)
+# Plot the results for the single Q-init value
+plot_mean_rewards(all_rewards, r_length=r_length, n_episodes=n_episodes, q_init = q_init_value)

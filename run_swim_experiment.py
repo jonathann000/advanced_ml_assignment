@@ -4,7 +4,7 @@ import importlib.util
 import matplotlib.pyplot as plt
 
 parser = argparse.ArgumentParser()
-parser.add_argument("--agentfile", type=str, help="file with Agent object", default="agent_q.py")
+parser.add_argument("--agentfile", type=str, help="file with Agent object", default="agent_esarsa.py")
 parser.add_argument("--env", type=str, help="Environment", default="riverswim:RiverSwim")
 args = parser.parse_args()
 
@@ -134,8 +134,8 @@ def value_iteration(env, theta=1e-6, gamma=0.95):
 
     return policy, V
 
-#print(f'accummulated rewards and q-table: {rewards_per_episode[-1]} \n {(agent.q1_values+agent.q2_values) / 2}' )
-print(f'accummulated rewards and q-table: {rewards_per_episode[-1]} \n {agent.q_values}' )
+print(f'accummulated rewards and q-table: {rewards_per_episode[-1]} \n {(agent.q1_values+agent.q2_values) / 2}' )
+#print(f'accummulated rewards and q-table: {rewards_per_episode[-1]} \n {agent.q_values}' )
 
 """ Plots for rewards and training error """
 import numpy as np
@@ -158,8 +158,8 @@ axs[1].plot(range(len(training_error_moving_avg)), training_error_moving_avg)
 plt.tight_layout()
 plt.show()
 
-
-q_table = agent.q_values
+q_table = (agent.q1_values + agent.q2_values) / 2
+#q_table = agent.q_values
 # Define the actions: left (0), right (1)
 # Define the actions: left (0), right (1)
 n_states = q_table.shape[0]

@@ -2,7 +2,7 @@ import numpy as np
 
 class Agent(object):
     """The world's simplest agent!"""
-    def __init__(self, state_space, action_space, alpha=0.01, epsilon=0.05, gamma=0.95, q_init = 0.):
+    def __init__(self, state_space, action_space, alpha=0.1, epsilon=0.05, gamma=0.95, q_init = 0.2):
         self.action_space = action_space
         self.state_space = state_space
         self.alpha = alpha
@@ -33,9 +33,9 @@ class Agent(object):
             observation = observation[0]
             self.stupid_flag = True
 
-        if np.random.random() > self.epsilon and np.max(self.q_values[observation]) > self.q_init: # Explore
+        if np.random.random() > self.epsilon and np.max(self.q_values[observation]) != self.q_init: # Exploit
             action = np.argmax(self.q_values[observation])
-        else: # Exploit
+        else: # Explore
             action = np.random.choice(self.action_space)
 
         self.prev_observation = observation

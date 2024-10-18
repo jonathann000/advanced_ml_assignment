@@ -4,10 +4,11 @@ import importlib.util
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy import stats
+import riverswim
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--agentfile", type=str, help="file with Agent object", default="agent_esarsa.py")
-parser.add_argument("--env", type=str, help="Environment", default="FrozenLake-v1")
+parser.add_argument("--env", type=str, help="Environment", default="riverswim:RiverSwim")
 args = parser.parse_args()
 
 spec = importlib.util.spec_from_file_location('Agent', args.agentfile)
@@ -18,17 +19,11 @@ n_runs = 3  # Number of runs to average per q_init
 
 def run_agent(q_init=0.1, n_episodes=n_episodes):
     try:
-        env = gym.make(args.env, is_slippery=True)
-        print("Loaded ", args.env)
-    except:
-        file_name, env_name = args.env.split(":")
-        gym.envs.register(
-            id=env_name + "-v0",
-            entry_point=args.env,
-        )
-        env = gym.make(env_name + "-v0")
-        print("Loaded", args.env)
-
+        env = riverswim.RiverSwim()  # local RiverSwim environment
+        print("Loaded local RiverSwim environment")
+    except Exception as e:
+        print("Error loading local RiverSwim environment:", str(e))
+        return []
     total_rewards_in_episode = 0
     rewards_per_episode = []
     action_dim = env.action_space.n
@@ -43,12 +38,9 @@ def run_agent(q_init=0.1, n_episodes=n_episodes):
         observation, reward, done, truncated, info = env.step(action)
         total_rewards_in_episode += reward
         agent.observe(observation, reward, done)
+        rewards_per_episode.append(total_rewards_in_episode)
+        episode_count += 1  # Increment episode count after each step since RiverSwim is continuous
 
-        if done:
-            rewards_per_episode.append(total_rewards_in_episode)
-            total_rewards_in_episode = 0
-            observation, info = env.reset()
-            episode_count += 1  # Increment episode count after each reset
     env.close()
     return rewards_per_episode
 
@@ -78,8 +70,8 @@ def plot_mean_rewards(all_rewards, q_inits, r_length):
         #plt.fill_between(episodes, mean_rewards - confidence_intervals, mean_rewards + confidence_intervals, alpha=0.2)
 
     plt.xlabel('Episodes')
-    plt.ylabel('Moving Average Reward')
-    plt.title('Moving Average for Different Q-value Initializations')
+    plt.ylabel('Accumulated Reward')
+    plt.title('Accumulated Rewards for Different Q-value Initializations')
     plt.legend()
     plt.show()
 
@@ -87,7 +79,7 @@ def plot_mean_rewards(all_rewards, q_inits, r_length):
 q_inits = [0.0, 0.1, 0.2, 0.3, 0.5, 1.0]
 
 # Perform 5 runs of the agent for each Q-value initialization
-n_episodes = 10000  # Fix the number of episodes for all runs
+n_episodes = 100000  # Fix the number of episodes for all runs
 all_rewards = []
 
 for q_init in q_inits:
