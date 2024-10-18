@@ -15,10 +15,11 @@ class Agent(object):
         self.prev_observation = None
         self.prev_action = None
 
-        self.stupid_flag = False
-        self.training_error = []
+        self.stupid_flag = False # First observation is of other type
+        # self.training_error = []
 
     def observe(self, observation, reward, done):
+        # "flip a coin" to choose which Q-values to update
         if np.random.random() < 0.5:
             td = (
                 reward + (
@@ -26,7 +27,6 @@ class Agent(object):
                 ) - self.q1_values[self.prev_observation, self.prev_action]
                 )
             self.q1_values[self.prev_observation, self.prev_action] += self.alpha * td
-
         else:
             td = (
                 reward + (
@@ -36,7 +36,7 @@ class Agent(object):
             self.q2_values[self.prev_observation, self.prev_action] += self.alpha * td
         
         self.prev_observation = observation
-        self.training_error.append(td)
+        # self.training_error.append(td)
 
 
     def act(self, observation):
@@ -46,8 +46,10 @@ class Agent(object):
 
         combined_q_value = (self.q1_values[observation] + self.q2_values[observation]) / 2
 
+        # Exploit
         if np.random.random() > self.epsilon and np.max(combined_q_value) != self.q_init:
             action = np.argmax(combined_q_value)
+        # Explore
         else:
             action = np.random.choice(self.action_space)
         

@@ -9,12 +9,12 @@ class Agent(object):
         self.epsilon = epsilon
         self.gamma = gamma
         self.q_init = q_init
-        self.q_values = np.full((state_space, action_space), self.q_init) # TODO: test different initialisation values
+        self.q_values = np.full((state_space, action_space), self.q_init) 
         self.prev_observation = None
         self.prev_action = None
 
-        self.stupid_flag = False
-        self.training_error = []
+        self.stupid_flag = False # First observation is of other type
+        # self.training_error = []
 
     def observe(self, observation, reward, done):
         temporal_difference = reward + (self.gamma * (not done) * np.max(self.q_values[observation]) - self.q_values[self.prev_observation, self.prev_action])
@@ -22,7 +22,7 @@ class Agent(object):
         self.q_values[self.prev_observation, self.prev_action] +=  self.alpha * temporal_difference
         
         self.prev_observation = observation
-        self.training_error.append(temporal_difference)
+        # self.training_error.append(temporal_difference)
 
         if done:
             self.prev_action = None
@@ -33,9 +33,11 @@ class Agent(object):
             observation = observation[0]
             self.stupid_flag = True
 
-        if np.random.random() > self.epsilon and np.max(self.q_values[observation]) != self.q_init: # Exploit
+        # Exploit
+        if np.random.random() > self.epsilon and np.max(self.q_values[observation]) != self.q_init: 
             action = np.argmax(self.q_values[observation])
-        else: # Explore
+        # Explore
+        else:
             action = np.random.choice(self.action_space)
 
         self.prev_observation = observation
